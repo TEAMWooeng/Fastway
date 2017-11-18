@@ -1,9 +1,43 @@
 package fastway;
 
-public class Node {
+public class Pair{
+	
+	private Node n;
+	private int weight;
+	
+	public Pair() {} //default constructor
+	
+	public Pair( Node n, int weight){ //constructor
+		this.n =n;
+		this.weight = weight;
+	}
+	
+	public Node getNode() {
+		return this.n;
+	}
+	public int getWeigth() {
+		return this.weight;
+	}
+	public void showPair() {
+		this.n.showNInfo();
+		System.out.println("weight : "+this.weight);
+	}
+	
+	//initialize node -> where? 
+	public static Node[] node_setting() {
+		Node[] nodearr = new Node[Node.numOfNode+1];
+		for(int i = 1; i<= Node.numOfNode; i++) {
+			nodearr[i] = new Node(i);
+		}
+		return nodearr;
+	}
+}
+
+
+class Node {
 	
 	static final int numOfNode = 10;	//setting #of Nodes(const variable)
-	private int idxnum;	//idx in array
+	private int idxnum;	//index in array
 	private String location_name;
 	private String address;
 	public Node() {} //default constructor
@@ -28,20 +62,13 @@ public class Node {
 	public String getLName() {//get location name
 		return this.location_name;
 	}
+	
 	public int getIdx() {//get index in array
 		return this.idxnum;
 	}
+	
 	public String getAddress() {
 		return this.address;
 	}
 	
-	public static void setting(Node[] arr) { //make nodes
-		
-		for(int i = 1; i<numOfNode+1; i++) {
-		arr[i] = new  Node(i);
-		}
-		
-	}
 }
-
-

@@ -1,37 +1,14 @@
 package fastway;
 
 
-//make sample pair class.
-class Pair{
-	
-	private Node n;
-	private int weight;
-	
-	public Pair() {} //default constructor
-	
-	public Pair( Node n, int wieght){ //constructor
-		this.n =n;
-		this.weight = weight;
-	}
-	
-	public Node getNode() {
-		return this.n;
-	}
-	public int getWeigth() {
-		return this.weight;
-	}
-	public void showPair() {
-		//this.n.showNInfo();
-		System.out.println("weight : "+this.weight);
-	}
-	
-}
-
 
 
 public class PriorityQueue extends Heap {
 	
-	public PriorityQueue(){}// constructor
+	public int getNumOfdata() {
+		return Heap.numOfData;
+	}
+	public PriorityQueue(){}// default constructor
 	
 	public boolean PQIsEmpty() {
 		return HIsEmpty();
@@ -39,7 +16,6 @@ public class PriorityQueue extends Heap {
 	public void PEnqueue(Pair p) {
 		HInsert(p);
 	}
-	
 	public Pair PDequeue() {
 		return	HDelete();
 	}
@@ -47,11 +23,10 @@ public class PriorityQueue extends Heap {
 }
 
 
-
 class Heap{
 	
 	final static int HEAPMAX = 100; //#of pair that can inserted in array
-	private static int numOfData;
+	protected static int numOfData;
 	
 	static Pair[] heapArr; 
 	
@@ -76,12 +51,10 @@ class Heap{
 		return false;
 	}
 	
-
 	//find index of parent, child pair in the heap.
 	private int GetParentIDX(int idx) { return idx/2; }
 	private int GetLChildIDX(int idx) { return idx*2; }
 	private int GetRChildIDX(int idx) { return idx*2+1;}
-	
 	
 	// find pair that has higher priority between two childen pair
 	int getHiPriChildIDX(int idx) {
@@ -108,18 +81,16 @@ class Heap{
 			if(PriorityComp(p, heapArr[GetParentIDX(idx)])) {
 				heapArr[idx] = heapArr[GetParentIDX(idx)];
 				idx= GetParentIDX(idx); //swap with parent pair
-			}else {
+			}else
 				break;
-			}
-			
-			numOfData ++;
-			heapArr[idx] = p;
+						
 		}
+		numOfData ++;
+		heapArr[idx] = p;
 	}
 	
-	//has to be fixed.
 	public Pair HDelete() {
-		int parentIdx = 1; // root idx
+		int parentIdx = 1; // root index
 		int childIdx;
 		
 		Pair return_data = heapArr[1]; //pop
@@ -137,23 +108,7 @@ class Heap{
 		
 		heapArr[parentIdx] = last_data;
 		numOfData --;
-		
 		return return_data;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-}
+} //end of class
