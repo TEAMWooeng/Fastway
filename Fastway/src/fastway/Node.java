@@ -35,12 +35,12 @@ public class Node {
 		return this.address;
 	}
 	
-	public static void  setting(Node[] n) { //make nodes
+	public static void setting(Node[] arr) { //make nodes
 		
-		n = new Node[numOfNode];
-		for(int i = 0; i<numOfNode; i++) {
-		n[i] = new  Node(i);
+		for(int i = 1; i<numOfNode+1; i++) {
+		arr[i] = new  Node(i);
 		}
+		
 	}
 }
 
