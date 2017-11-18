@@ -1,9 +1,33 @@
 package fastway;
 
+
+//make sample pair class.
 class Pair{
-	Node n;
-	int weight;
+	
+	private Node n;
+	private int weight;
+	
+	public Pair() {} //default constructor
+	
+	public Pair( Node n, int wieght){ //constructor
+		this.n =n;
+		this.weight = weight;
+	}
+	
+	public Node getNode() {
+		return this.n;
+	}
+	public int getWeigth() {
+		return this.weight;
+	}
+	public void showPair() {
+		//this.n.showNInfo();
+		System.out.println("weight : "+this.weight);
+	}
+	
 }
+
+
 
 public class PriorityQueue extends Heap {
 	
@@ -15,6 +39,7 @@ public class PriorityQueue extends Heap {
 	public void PEnqueue(Pair p) {
 		HInsert(p);
 	}
+	
 	public Pair PDequeue() {
 		return	HDelete();
 	}
@@ -34,7 +59,7 @@ class Heap{
 	//if p1 has higher priorities , return true else return false
 	//Pair the has smaller weight has higher priority
 	private boolean PriorityComp(Pair p1, Pair p2) {
-		if(p1.weight < p2.weight)
+		if(p1.getWeigth() < p2.getWeigth())
 			return true;
 		return false;
 	}
@@ -46,7 +71,7 @@ class Heap{
 	}
 	
 	public boolean HIsEmpty() {
-		if(this.numOfData == 0)
+		if(numOfData == 0)
 			return true;
 		return false;
 	}
@@ -92,7 +117,7 @@ class Heap{
 		}
 	}
 	
-
+	//has to be fixed.
 	public Pair HDelete() {
 		int parentIdx = 1; // root idx
 		int childIdx;
