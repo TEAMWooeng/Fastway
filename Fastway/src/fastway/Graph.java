@@ -3,14 +3,14 @@ package fastway;
 import java.util.Arrays;
 
 public class Graph {
-	static private int numOfNode = 10; 	//#of node that will be used.
+	static  int numOfNode = 10; 	//#of node that will be used.
 
-	private static LinkedList[] cost;	//store final weight ( real time + distance)
+	public static LinkedList[] cost;	//store final weight ( real time + distance)
 	private int[] distance;     //store the distance(find fastest way)
 	private Node[] previous;
 	//public Graph() {}	//default constructor
 	
-	public Graph(LinkedList[] list, Node start) {
+	public Graph(LinkedList[] list) {
 		cost = list;	//does it need deep copy?
 		distance = new int[numOfNode+1];
 		Arrays.fill(distance, 999999);	//initialize distance to infinite

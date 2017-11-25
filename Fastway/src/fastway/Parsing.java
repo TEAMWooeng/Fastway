@@ -9,7 +9,8 @@ import java.net.URL;
 //In this class, we have to parse data and make LinkedList.
 public final class Parsing {
 	
-	private static void parse(){
+	private static LinkedList[] parse(){
+		
 		final String target = "http://openapi.seoul.go.kr:8088/6b6e676670666c753434736d6f7076/xml/TrafficInfo/1/5/1220003800";
 	    try { 
 	    	HttpURLConnection con = (HttpURLConnection) new URL(target).openConnection();
@@ -25,18 +26,12 @@ public final class Parsing {
 	    }catch(Exception e) {
 	    	System.out.println("Error!");
 	    }
+	    
+	    LinkedList[] list = new LinkedList[Graph.numOfNode+1];
+	    return list;
 	}
 	
-	
-	
-	private static LinkedList realTimeList() {
-		LinkedList list = new LinkedList();
-		
-		//make list 
-		
-		return list;
-	}
-	
+
 	
 	private static LinkedList distanceList() { 
 		LinkedList list = new LinkedList();
@@ -48,8 +43,6 @@ public final class Parsing {
 	
 	public static LinkedList final_list() {
 		
-		LinkedList real_List = realTimeList();
-		LinkedList dist_List = distanceList();
 		
 		LinkedList final_list = new LinkedList();
 		

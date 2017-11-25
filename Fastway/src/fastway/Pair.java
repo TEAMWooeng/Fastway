@@ -46,7 +46,7 @@ class Node {
    }
 
    public void showNInfo() { //showing information of node.
-      System.out.print("location name: "+this.location_name);
+      System.out.println("location name: "+this.location_name);
    }
    
    public String getLName() {//get location name

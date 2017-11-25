@@ -4,8 +4,9 @@ import java.util.*;
 public class LinkedList {
 	private Node head;
 	private int size;
-	private java.util.LinkedList<Pair> linkedlist = new java.util.LinkedList<Pair>();
+	public java.util.LinkedList<Pair> linkedlist = new java.util.LinkedList<Pair>();
 	
+	//initialize
 	public LinkedList() { 	//default constructor
 		head = null;
 		size = 0;
