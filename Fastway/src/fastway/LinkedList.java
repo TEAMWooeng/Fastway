@@ -11,9 +11,9 @@ public class LinkedList {
 		size = 0;
 	}
 	
-	public LinkedList(Node start) {
+	public LinkedList(Node start) { //constructor with start node
 		head  = start;
-		size = 0;
+		size = 1;
 	}
 	
 	public void Insert(Node n, int weight) {
@@ -26,7 +26,7 @@ public class LinkedList {
 		linkedlist.remove();
 	}
 
-	public void print() { //print all element of list
+	public void print() {  //print all element of list
 		head.showNInfo();
 		System.out.print(":");
 		for(int i = 0; i<linkedlist.size(); i++) {
