@@ -84,64 +84,66 @@ class Node {
 }
 
 
-	class Link{
-	   private Node head;
-	   private int size;
-	   private LinkedList<Pair> linkedlist = new LinkedList<Pair>();
+class Link{
+		
+	private Node head;
+	private int size;
+	private LinkedList<Pair> linkedlist = new LinkedList<Pair>();
 	   
 	   
-	   public Link() {
-		   head = null;
-		   size = 0; 
-	   }
-	   public Link(Node start) {
-		   head = start;
-		   size = 0;
-	   }
-	   
-	   
-	   
-	   /*Node link(Node n) {
-	      Node x = head;
-	      for (int i = 0; i < numOfVertex + 1; i++) 
-	         x=x.getNext();
-	      return x;   
-	      
-	   }*/
-	   
-	   /*public void ListInit() {
-		  head.setNext(null);
-		  head.setIdx(0);
-		  head.setLname("");
-	   }*/
-	   
-	   private void FInsert(Node n, int weight) {
-		  Pair newPair = new Pair(n, weight);
-		  linkedlist.add(newPair);
-		  size++;
-	   }
-	   
-	   public void Insert(Node n, int weight) {
-	      Pair newPair = new Pair(n, weight);
-	      if(size==0) {
-	         FInsert(n, weight);
-	      }
-	      else {
-	         linkedlist.add(newPair);
-	         size++;
-	      }
-	   }
-	   
-	   public void delete(Pair x) {
-		   linkedlist.remove(x);
-	   }
-	   
-	   public void print() {
-		   head.showNInfo();
-		   System.out.print(":");
-		   for(int i = 0; i<linkedlist.size();i++) {
-			   linkedlist.get(i).showPair();
-		   }
-		   
-	   }
+	public Link() {
+		head = null;
+		size = 0; 
 	}
+	
+	public Link(Node start) {
+		head = start;
+		size = 0;
+	}
+	   
+	   
+	   
+	/*Node link(Node n) {
+		Node x = head;
+	    for (int i = 0; i < numOfVertex + 1; i++) 
+	       x=x.getNext();
+	    return x;   
+	      
+	}*/
+	   
+	/*public void ListInit() {
+		head.setNext(null);
+		head.setIdx(0);
+		head.setLname("");
+	}*/
+	   
+	private void FInsert(Node n, int weight) {
+		Pair newPair = new Pair(n, weight);
+		linkedlist.add(newPair);
+		size++;
+	  }
+	   
+	public void Insert(Node n, int weight) {
+		Pair newPair = new Pair(n, weight);
+	    if(size==0) {
+	       FInsert(n, weight);
+	    }
+	    else {
+	       linkedlist.add(newPair);
+	       size++;
+	    }
+	}
+	   
+	public void delete(Pair x) {
+		linkedlist.remove(x);
+	}
+	   
+	public void print() {
+		head.showNInfo();
+		System.out.print(":");
+		for(int i = 0; i<linkedlist.size();i++) {
+			linkedlist.get(i).showPair();
+		}
+		   
+	}
+}
