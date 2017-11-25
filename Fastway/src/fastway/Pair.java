@@ -1,5 +1,5 @@
 package fastway;
-import java.util.*;
+
 
 class Pair{   
    
@@ -23,24 +23,16 @@ class Pair{
       this.n.showNInfo();
       System.out.print("weight : "+this.weight);
    }
-   
-   //initialize node -> where? 
-   public static Node[] node_setting() {
-      Node[] nodearr = new Node[Node.numOfNode+1];
-      for(int i = 1; i<= Node.numOfNode; i++) {
-         nodearr[i] = new Node(i);
-      }
-      return nodearr;
-   }
 }
 
 
 class Node {
    
-   static final int numOfNode = 10;   //setting #of Nodes(const variable)
+   //static final int numOfNode = 10;   //setting #of Nodes(const variable) --> move to main class
    private int idxnum;   //index in array
    //private Node next;
    private String location_name;
+   
    public Node() {} //default constructor
    
    public Node(int idxnum){ //constructor

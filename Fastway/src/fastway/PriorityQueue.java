@@ -1,8 +1,5 @@
 package fastway;
 
-
-
-
 public class PriorityQueue extends Heap {
 	
 	public int getNumOfdata() {
