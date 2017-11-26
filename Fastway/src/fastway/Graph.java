@@ -59,13 +59,34 @@ public class Graph {
 				}
 			}
 			
+			
 		}
 		
-		
-		
-		
-		
-		
-		
+		showShortestPath(start, end, previous);
+		previous = null; // delete dynamic allocation 
+	}
+	
+	
+	private void showShortestPath(Node start, Node end, Node[] previous) {
+		while(true) {
+			if(start.getIdx() == end.getIdx()) {
+				System.out.println(start.getLName());
+				break;
+			}else {
+				showShortestPath(start, previous[end.getIdx()], previous);
+				System.out.println(end.getLName());
+			}
+		}
+	}
+	
+	//if there is same node in nodearr, return index of that node. else, return -1
+	private int findNodeIdx(String str) {
+		int num = 0;
+		while(nodearr.size()>num) {
+			if(nodearr.get(num).getLName() == str) {
+				return num;
+			}
+		}
+		return -1;
 	}
 }

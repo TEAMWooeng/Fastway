@@ -20,7 +20,18 @@ public class LinkedList {
 		cur = 0;
 	}
 	
-	public void insert(Pair p) {
+	public boolean Insert(String end , int weight) {
+		int num=0;
+		while(Graph.nodearr.size()>num) {
+			if(Graph.nodearr.get(num).getLName() == end) {
+				this.linkedlist.add(new Pair(Graph.nodearr.get(num).getIdx(), end , weight));
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void Insert(Pair p) {
 		linkedlist.add(p);
 		size++;
 	}
