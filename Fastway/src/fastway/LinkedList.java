@@ -36,9 +36,12 @@ public class LinkedList {
 	}
 	
 	public boolean search(Pair p) { //search node
-		//if there is element in the list, put to p , and return true
-		//else, return false
-		
-		return true;
+		Iterator<Pair> iterator = linkedlist.iterator(); // create iterator
+		if(iterator.hasNext()) {			 // if exists next Pair, put it into p and return true
+			p = (Pair) iterator.next();
+			return true;
+		}
+		else
+			return false;
 	}
 }
