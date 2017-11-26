@@ -8,6 +8,11 @@ class Pair{
    
    public Pair() {} //default constructor
    
+   public Pair(int idx, String lname, int weigth) {
+	   this.n = new Node(idx, lname);
+	   this.weight = weigth;
+   }
+   
    public Pair( Node n, int weight){ //constructor
       this.n =n;
       this.weight = weight;
