@@ -92,9 +92,10 @@ public final class Parsing {
 	   }
 		
 	    
-	    if(M == Graph.MODE.SPEED)
+	    if(M == Graph.MODE.SPEED) {
 	    	time = null;
 	    	return speed;
+	    }
 	    else {
 	    	speed = null;
 	    	return time;
@@ -108,7 +109,7 @@ public final class Parsing {
 		int eidx = Graph.findNodeIdx(end);
 		
 		if(sidx == -1 || eidx == -1) {
-			System.out.println("Error~!");
+			System.out.println("there is no node info");
 			return ;
 		}
 		
