@@ -3,42 +3,44 @@ package fastway;
 
 class Pair{   
    
-   private Node n;
+   private String location;
    private int weight;
    
    public Pair() {
-	   n = new Node();
+	   location = "empty";
 	   weight = 0;
    } //default constructor
    
-   public Pair(int idx, String lname, int weigth) {
-	   this.n = new Node(idx, lname);
+   public Pair(String lname, int weigth) {
+	   location = lname;
 	   this.weight = weigth;
    }
    
-   public Pair( Node n, int weight){ //constructor
-      this.n =n;
-      this.weight = weight;
-   }
-   
-   public Node getNode() {
-      return this.n;
-   }
    public int getWeigth() {
       return this.weight;
    }
+   
+   public String getNode() {
+	   return location;
+   }
    public void showPair() {
-      this.n.showNInfo();
-      System.out.println(", weight : "+this.weight);
+      System.out.println("location: "+location+" , weight : "+weight);
    }
    
-   public void setPair(Node n , int weight) {
-	   this.n.setNode(n.getIdx(),n.getLName());
+   public void setPair(String lname , int weight) {
+	   location = lname;
 	   this.weight = weight;
    }
 }
 
 
+
+
+
+
+
+
+/* remove node class
 class Node {
    
    //static final int numOfNode = 10;   //setting #of Nodes(const variable) --> move to main class
@@ -83,3 +85,6 @@ class Node {
 			  
    }
 }	
+
+
+*/

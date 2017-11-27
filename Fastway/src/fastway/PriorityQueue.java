@@ -92,7 +92,6 @@ class Heap{
 		
 		numOfData ++;
 		heapArr[idx] = p;
-		System.out.println("insert queue: "+ heapArr[idx].getNode().getLName()+","+heapArr[idx].getWeigth());
 		showQueue();
 		
 	}
@@ -116,17 +115,12 @@ class Heap{
 		
 		heapArr[parentIdx] = last_data;
 		numOfData --;
-		System.out.println("Delete Queue: "+ return_data.getNode().getLName()+","+return_data.getWeigth());
 		showQueue();
 		return return_data;
 	}
 	
 	public void showQueue() {
-		System.out.println("queue");
-		for(int i = 1; i<= this.numOfData ; i++) {
-			System.out.println(heapArr[i].getNode().getLName()+","+heapArr[i].getWeigth());
-		}
-		System.out.println();
+		//make
 	}
 
 } //end of class

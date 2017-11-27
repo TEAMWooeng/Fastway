@@ -6,20 +6,19 @@ public class Graph {
 	static  int numOfNode = 5; 	//#of node that will be used.
 	
 	// node example --> never changed.
-	static public final java.util.LinkedList<Node> nodearr 
-								= new java.util.LinkedList<Node>() {{
-		
-			add(new Node(1, "巢己开"));
-			add(new Node(2, "件角措涝备开"));
-			add(new Node(3, "C"));
-			add(new Node(4, "D"));
-			add(new Node(5, "E"));
+	static public final java.util.LinkedList<String> Nodearr 
+								= new java.util.LinkedList<String>() {{
+			add("A");
+			add("B");
+			add("C");
+			add("D");
+			add("E");
 			
 	}};
 	
 	public static LinkedList[] cost;	//store final weight 
 	private static int[] distance;     //store the distance(find fastest way)
-	private static Node[] previous;
+	private static String[] previous;
 	//public Graph() {}	//default constructor
 	
 	public Graph(LinkedList[] list) {
@@ -114,9 +113,9 @@ public class Graph {
 	//if there is same node in node array, return index of that node. else, return -1
 	public static int findNodeIdx(String str) {
 		int num = 0;
-		while(nodearr.size()>num) {
-			if(nodearr.get(num).getLName().equals(str)) {
-				return nodearr.get(num).getIdx();
+		while(Nodearr.size()>num) {
+			if(Nodearr.get(num).equals(str)) {
+				return num;
 			}
 			num++;
 		}

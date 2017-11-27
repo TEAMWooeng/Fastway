@@ -90,23 +90,14 @@ public final class Parsing {
 	private static void setList(String start, String end, int weight, LinkedList[] list) {
 		
 		int sidx = Graph.findNodeIdx(start);
-		int eidx = -1;
-		int num =0;
-		while(Graph.nodearr.size()>num+1) {
-			
-			if(Graph.nodearr.get(num).getLName().equals(end)) {
-				eidx = num;
-				break;
-			}
-			num++;
-		}
+		int eidx = Graph.findNodeIdx(end);
 		
 		if(sidx == -1 || eidx == -1) {
 			System.out.println("Error!");
 			return ;
 		}
 		
-		list[sidx].Insert(Graph.nodearr.get(eidx), weight);
+		list[sidx].Insert(new Pair(end, weight));
 		
 	}
 	
