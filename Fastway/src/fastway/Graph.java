@@ -9,8 +9,8 @@ public class Graph {
 	static public final java.util.LinkedList<Node> nodearr 
 								= new java.util.LinkedList<Node>() {{
 		
-			add(new Node(1, "A"));
-			add(new Node(2, "B"));
+			add(new Node(1, "巢己开"));
+			add(new Node(2, "件角措涝备开"));
 			add(new Node(3, "C"));
 			add(new Node(4, "D"));
 			add(new Node(5, "E"));

@@ -2,6 +2,32 @@ package fastway;
 
 public class Sampleclass1 {
 	
+	
+	public static void main(String[] args) {
+		LinkedList[] speed = new LinkedList[Graph.numOfNode+1];
+		LinkedList[] time  = new LinkedList[Graph.numOfNode+1];
+		for(int i = 1; i<=Graph.numOfNode;i++) {
+			speed[i] = new LinkedList();
+			time[i] = new LinkedList();
+		}
+		
+		try {
+			Parsing.parse(speed, time);
+		}catch(Exception e) {
+			System.out.println("Error!");
+			return;
+		}
+		
+		speed[1].print();
+		time[1].print();
+		
+		speed[2].print();
+		time[2].print();
+		
+		
+	}
+	
+	/*
 	public static void main(String[] args) {
 		
 		
@@ -20,7 +46,7 @@ public class Sampleclass1 {
 		setList("E","B",4, cost);
 		setList("E","D",2, cost);
 		
-		/*
+		
 		PriorityQueue pq = new PriorityQueue();
 		Pair tmpPair = new Pair();
 		pq.PEnqueue(new Pair(Graph.nodearr.get(4),0));
@@ -39,14 +65,15 @@ public class Sampleclass1 {
 		
 		pq.showQueue();
 		
-		*/
+		
+		
 		Graph g = new Graph(cost);
 		g.shortestway("E", "A");
 	
 		System.out.println("Program finish");
 	}
 	
-	
+	*/
 	//sample
 	
 	private static void setList(String start, String end, int weight, LinkedList[] list) {
