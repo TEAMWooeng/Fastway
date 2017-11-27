@@ -16,6 +16,7 @@ public class Graph {
 			
 	}};
 	
+	
 	public static LinkedList[] cost;	//store final weight 
 	private static int[] distance;     //store the distance(find fastest way)
 	private static String[] previous;
@@ -25,11 +26,14 @@ public class Graph {
 		cost = list;	
 		distance = new int[numOfNode+1];
 		Arrays.fill(distance, 999999);	//initialize distance to infinite
-		previous = new Node[numOfNode+1];
-		
+		previous = new String[numOfNode+1];
+		//initialize
+		for(int i =0; i<=numOfNode; i++) {
+			previous[i] = null;
+		}
 	}
 
-	
+	/*
 	public void shortestway(String s, String e) {
 		
 		//find node array index
@@ -97,18 +101,7 @@ public class Graph {
 	
 	}
 	
-
-	private void showShortestPath(Node start, Node end, Node[] previous) {
-		while(true) {
-			if(start.getLName() == end.getLName()) {
-				System.out.println(start.getLName());
-				return;
-			}else {
-				showShortestPath(start, previous[end.getIdx()], previous);
-				System.out.println(end.getLName());
-			}
-		}
-	}
+*/
 	
 	//if there is same node in node array, return index of that node. else, return -1
 	public static int findNodeIdx(String str) {

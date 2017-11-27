@@ -4,9 +4,9 @@ public class Sampleclass1 {
 	
 	
 	public static void main(String[] args) {
-		LinkedList[] speed = new LinkedList[Graph.numOfNode+1];
-		LinkedList[] time  = new LinkedList[Graph.numOfNode+1];
-		for(int i = 1; i<=Graph.numOfNode;i++) {
+		LinkedList[] speed = new LinkedList[Graph.numOfNode];
+		LinkedList[] time  = new LinkedList[Graph.numOfNode];
+		for(int i = 0; i<=Graph.numOfNode;i++) {
 			speed[i] = new LinkedList();
 			time[i] = new LinkedList();
 		}
@@ -18,11 +18,11 @@ public class Sampleclass1 {
 			return;
 		}
 		
+		speed[0].print();
+		time[0].print();
+		
 		speed[1].print();
 		time[1].print();
-		
-		speed[2].print();
-		time[2].print();
 		
 		
 	}
@@ -76,26 +76,6 @@ public class Sampleclass1 {
 	*/
 	//sample
 	
-	private static void setList(String start, String end, int weight, LinkedList[] list) {
-		
-		int sidx = Graph.findNodeIdx(start);
-		int eidx = -1;
-		int num =0;
-		while(Graph.nodearr.size()>num+1) {
-			
-			if(Graph.nodearr.get(num).getLName().equals(end)) {
-				eidx = num;
-				break;
-			}
-			num++;
-		}
-		
-		if(sidx == -1 || eidx == -1) {
-			System.out.println("Error!");
-			return ;
-		}
-		
-		list[sidx].Insert(Graph.nodearr.get(eidx), weight);
-	}
+	
 
 }
