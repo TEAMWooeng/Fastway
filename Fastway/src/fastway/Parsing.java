@@ -93,7 +93,7 @@ public final class Parsing {
 		int eidx = Graph.findNodeIdx(end);
 		
 		if(sidx == -1 || eidx == -1) {
-			System.out.println("Error!");
+			System.out.println("Error~!");
 			return ;
 		}
 		

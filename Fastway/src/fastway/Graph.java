@@ -33,75 +33,51 @@ public class Graph {
 		}
 	}
 
-	/*
 	public void shortestway(String s, String e) {
 		
-		//find node array index
-		int sidx = 0, eidx = 0;
-		int num =0;
-		while(nodearr.size() > num) {
-			if(nodearr.get(num).getLName().equals(s)) {
-				sidx = num;
-				break;
-			}
-				num++;
-		}
+		PriorityQueue pq = new PriorityQueue();
+		int sidx = Graph.findNodeIdx(s);
+		int eidx = Graph.findNodeIdx(e);
 		
-		num = 0;
-		while(nodearr.size() >num) {
-			if(nodearr.get(num).getLName().equals(e)) {
-				eidx = num;
-				break;
-			}
-			num++;
-		}
-		
-		//check error
-		if(sidx == -1 || eidx == -1) {
-			System.out.println("Error");
-			return;
-		}
-		
-		Node start = Graph.nodearr.get(sidx);
-		Node end = Graph.nodearr.get(eidx);
-		
-		
-		Arrays.fill(distance, 999999);	//initialize distance to infinite
-		PriorityQueue pq = new PriorityQueue(); //pq initialize
-		
-		pq.PEnqueue(new Pair(start, 0));	//enqueue starting node and distance 0
-		distance[start.getIdx()] = 0;
-		previous[start.getIdx()] = start;
-		while(pq.getNumOfdata() != 0) {
+		distance[sidx] = 0;
+		previous[sidx] = ""; 
+		pq.PEnqueue(new Pair(s,0));
+	
+		while(!pq.HIsEmpty()) {
+			Pair upperPair = pq.PDequeue();
+			int upperidx = Graph.findNodeIdx(upperPair.getNode());
 			
-			Pair pair = pq.PDequeue(); //pop a pair
-			int index = pair.getNode().getIdx(); 	//index of node
-			
-			cost[index].searchInitiallize(); //before search the list, initialize cur to 0
-			
-			Pair tmpPair = new Pair(); //the pair that store element in list.
-			while(cost[index].search(tmpPair)) { //if there is element
-				//tmpPair.showPair();
-				int nodeidx = tmpPair.getNode().getIdx();
-				int weight = tmpPair.getWeigth();
+			cost[upperidx].searchInitiallize();
+			Pair tmpPair = new Pair();
+			while(cost[upperidx].search(tmpPair)) {
 				
-				if(distance[nodeidx] > distance[index] +weight) {
-					distance[nodeidx] = distance[index] + weight;
-					previous[nodeidx] = pair.getNode(); //set previous
-					pq.PEnqueue(new Pair(tmpPair.getNode(), distance[nodeidx]));
+				int tmpidx = Graph.findNodeIdx(tmpPair.getNode());
+				
+				if(distance[tmpidx]>distance[upperidx]+tmpPair.getWeigth()) {
+					distance[tmpidx] = distance[upperidx]+tmpPair.getWeigth();
+					previous[tmpidx] = upperPair.getNode();
+					pq.PEnqueue(new Pair(tmpPair.getNode(), distance[tmpidx]));	
 				}
 			}
 			
-			
 		}
 		
-		
-		//showShortestPath(start, end, previous);
-		previous = null; // delete dynamic allocation 
-	
+		showShortestPath(sidx, eidx, previous);
+		System.out.println();
 	}
 	
-*/
+
+	private static void showShortestPath(int sidx, int eidx, String[] previous) {
+		
+		if(sidx == eidx && previous[sidx].equals("")) {
+			System.out.print(Nodearr.get(sidx));
+			return;
+		}else {
+			showShortestPath(sidx, Graph.findNodeIdx(previous[eidx]), previous);
+			System.out.print("-"+Nodearr.get(eidx));
+		}
+		
+	}
 	
 	//if there is same node in node array, return index of that node. else, return -1
 	public static int findNodeIdx(String str) {
