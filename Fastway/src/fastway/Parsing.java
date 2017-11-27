@@ -32,16 +32,26 @@ public final class Parsing {
 	}
 	
 	//will be used in parse method
-	private static void setList(String start, String end, int weight, LinkedList[] array) {
+	private static void setList(String start, String end, int weight, LinkedList[] list) {
 		
-		//find starting node
 		int sidx = Graph.findNodeIdx(start);
-		if(sidx == -1) return;	//if there is no string in the node array
+		int eidx = -1;
+		int num =0;
+		while(Graph.nodearr.size()>num+1) {
+			
+			if(Graph.nodearr.get(num).getLName().equals(end)) {
+				eidx = num;
+				break;
+			}
+			num++;
+		}
 		
-		int eidx = Graph.findNodeIdx(end);
-		if(eidx == -1) return;
+		if(sidx == -1 || eidx == -1) {
+			System.out.println("Error!");
+			return ;
+		}
 		
-		array[sidx].Insert(Graph.nodearr.get(eidx), weight);
+		list[sidx].Insert(Graph.nodearr.get(eidx), weight);
 		
 	}
 	

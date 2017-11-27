@@ -6,7 +6,10 @@ class Pair{
    private Node n;
    private int weight;
    
-   public Pair() {} //default constructor
+   public Pair() {
+	   n = new Node();
+	   weight = 0;
+   } //default constructor
    
    public Pair(int idx, String lname, int weigth) {
 	   this.n = new Node(idx, lname);
@@ -27,6 +30,11 @@ class Pair{
    public void showPair() {
       this.n.showNInfo();
       System.out.println(", weight : "+this.weight);
+   }
+   
+   public void setPair(Node n , int weight) {
+	   this.n.setNode(n.getIdx(),n.getLName());
+	   this.weight = weight;
    }
 }
 
@@ -51,7 +59,7 @@ class Node {
    }
 
    public void showNInfo() { //showing information of node.
-      System.out.print("location name: "+this.location_name);
+      System.out.println("location name: "+ this.location_name);
    }
    
    public String getLName() {//get location name
@@ -69,5 +77,9 @@ class Node {
    public void setIdx(int idxnum) {
 	   this.idxnum = idxnum;
    }
- 
-}
+   public void setNode(int idxnum, String lname) {
+	   this.idxnum = idxnum;
+	   this.location_name = lname;
+			  
+   }
+}	

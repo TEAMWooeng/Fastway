@@ -33,33 +33,52 @@ public class Graph {
 	
 	public void shortestway(String s, String e) {
 		
-		int sidx = findNodeIdx(s);
-		int eidx = findNodeIdx(e);
+		//find node array index
+		int sidx = 0, eidx = 0;
+		int num =0;
+		while(nodearr.size() > num) {
+			if(nodearr.get(num).getLName().equals(s)) {
+				sidx = num;
+				break;
+			}
+				num++;
+		}
+		
+		num = 0;
+		while(nodearr.size() >num) {
+			if(nodearr.get(num).getLName().equals(e)) {
+				eidx = num;
+				break;
+			}
+			num++;
+		}
+		
+		//check error
 		if(sidx == -1 || eidx == -1) {
 			System.out.println("Error");
 			return;
 		}
 		
-		
 		Node start = Graph.nodearr.get(sidx);
 		Node end = Graph.nodearr.get(eidx);
+		
 		
 		Arrays.fill(distance, 999999);	//initialize distance to infinite
 		PriorityQueue pq = new PriorityQueue(); //pq initialize
 		
 		pq.PEnqueue(new Pair(start, 0));	//enqueue starting node and distance 0
 		distance[start.getIdx()] = 0;
-		
+		previous[start.getIdx()] = start;
 		while(pq.getNumOfdata() != 0) {
 			
 			Pair pair = pq.PDequeue(); //pop a pair
 			int index = pair.getNode().getIdx(); 	//index of node
 			
-			Pair tmpPair = new Pair(); //the pair that store element in list.
-			
 			cost[index].searchInitiallize(); //before search the list, initialize cur to 0
 			
+			Pair tmpPair = new Pair(); //the pair that store element in list.
 			while(cost[index].search(tmpPair)) { //if there is element
+				//tmpPair.showPair();
 				int nodeidx = tmpPair.getNode().getIdx();
 				int weight = tmpPair.getWeigth();
 				
@@ -73,16 +92,18 @@ public class Graph {
 			
 		}
 		
-		showShortestPath(start, end, previous);
+		
+		//showShortestPath(start, end, previous);
 		previous = null; // delete dynamic allocation 
+	
 	}
 	
 
 	private void showShortestPath(Node start, Node end, Node[] previous) {
 		while(true) {
-			if(start.getIdx() == end.getIdx()) {
+			if(start.getLName() == end.getLName()) {
 				System.out.println(start.getLName());
-				break;
+				return;
 			}else {
 				showShortestPath(start, previous[end.getIdx()], previous);
 				System.out.println(end.getLName());
@@ -95,8 +116,9 @@ public class Graph {
 		int num = 0;
 		while(nodearr.size()>num) {
 			if(nodearr.get(num).getLName().equals(str)) {
-				return num;
+				return nodearr.get(num).getIdx();
 			}
+			num++;
 		}
 		return -1;
 	}

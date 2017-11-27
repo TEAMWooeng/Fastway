@@ -47,8 +47,8 @@ public class LinkedList {
 	}
 
 	public void print() {  //print all element of list
-		head.showNInfo();
-		System.out.print(":");
+		//head.showNInfo();
+		//System.out.print(":");
 		for(int i = 0; i<linkedlist.size(); i++) {
 			linkedlist.get(i).showPair();
 		}
@@ -58,15 +58,18 @@ public class LinkedList {
 		this.cur = 0;
 	}
 	
-	public boolean search(Pair p) { //search node
+	public boolean search(Pair pair) { //search node
 		
 		if(this.cur >= size) { //when finish searching
 			return false;
 		}
 		else {
-			p = this.linkedlist.get(cur);
+			
+	//		Pair p = this.linkedlist.get(cur);
+			//pair = new Pair(linkedlist.get(cur).getNode(), linkedlist.get(cur).getWeigth());
+			//System.out.println("in the method, ");
+			pair.setPair(linkedlist.get(cur).getNode(), linkedlist.get(cur).getWeigth());
 			cur ++;
-			p.showPair();
 			return true;
 		}
 		/*
