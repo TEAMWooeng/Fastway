@@ -3,28 +3,33 @@ package fastway;
 import java.util.Arrays;
 
 public class Graph {
-	static  int numOfNode = 5; 	//#of node that will be used.
+	
+	public enum MODE{SPEED, TIME};
+	
+	static  int numOfNode = 8; 	//#of node that will be used.
 	
 	// node example --> never changed.
 	static public final java.util.LinkedList<String> Nodearr 
 								= new java.util.LinkedList<String>() {{
-			add("A");
-			add("B");
-			add("C");
-			add("D");
-			add("E");
-			
+			add("노들역");
+			add("노량진역");
+			add("상도터널");
+			add("상도역");
+			add("노량진삼거리");
+			add("장승배기");
+			add("상도대림아파트");
+			add("신상도초교");
 	}};
 	
 	
 	public static LinkedList[] cost;	//store final weight 
-	private static int[] distance;     //store the distance(find fastest way)
+	private static double[] distance;     //store the distance(find fastest way)
 	private static String[] previous;
 	//public Graph() {}	//default constructor
 	
-	public Graph(LinkedList[] list) {
-		cost = list;	
-		distance = new int[numOfNode+1];
+	public Graph() {
+		cost = null;	
+		distance = new double[numOfNode+1];
 		Arrays.fill(distance, 999999);	//initialize distance to infinite
 		previous = new String[numOfNode+1];
 		//initialize
@@ -32,10 +37,22 @@ public class Graph {
 			previous[i] = null;
 		}
 	}
-
-	public void shortestway(String s, String e) {
+	
+	private void setCost(LinkedList[] list) {
+		this.cost = list;
+	}
+	
+	//dijkstra algorithm
+	public void shortestway(MODE m, String s, String e) {
+		LinkedList[] Cost = new LinkedList[numOfNode];
+		for(int i = 0; i< numOfNode ; i++) {
+			Cost[i] = new LinkedList();
+		}
 		
-		PriorityQueue pq = new PriorityQueue();
+		Cost = Parsing.parse(m);
+		this.setCost(Cost);
+		PriorityQueue pq = new PriorityQueue(m);
+		
 		int sidx = Graph.findNodeIdx(s);
 		int eidx = Graph.findNodeIdx(e);
 		
@@ -78,6 +95,7 @@ public class Graph {
 		}
 		
 	}
+	
 	
 	//if there is same node in node array, return index of that node. else, return -1
 	public static int findNodeIdx(String str) {

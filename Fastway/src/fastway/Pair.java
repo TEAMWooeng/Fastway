@@ -3,19 +3,19 @@ package fastway;
 class Pair{   
    
    private String location;
-   private int weight;
+   private double weight;
    
    public Pair() {
 	   location = "empty";
 	   weight = 0;
    } //default constructor
    
-   public Pair(String lname, int weigth) {
+   public Pair(String lname, double weigth) {
 	   location = lname;
 	   this.weight = weigth;
    }
    
-   public int getWeigth() {
+   public double getWeigth() {
       return this.weight;
    }
    
@@ -26,7 +26,7 @@ class Pair{
       System.out.println("location: "+location+" , weight : "+weight);
    }
    
-   public void setPair(String lname , int weight) {
+   public void setPair(String lname , double weight) {
 	   location = lname;
 	   this.weight = weight;
    }

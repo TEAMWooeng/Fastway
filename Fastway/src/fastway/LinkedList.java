@@ -26,7 +26,7 @@ public class LinkedList {
 		size++;
 	}
 	
-	public void Insert(String node, int weight) {
+	public void Insert(String node, double weight) {
 		linkedlist.add(new Pair(node, weight));
 		size++;
 	}

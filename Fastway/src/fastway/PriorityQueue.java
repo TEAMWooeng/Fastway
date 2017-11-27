@@ -5,7 +5,10 @@ public class PriorityQueue extends Heap {
 	public int getNumOfdata() {
 		return Heap.numOfData;
 	}
-	public PriorityQueue(){}// default constructor
+	
+	public PriorityQueue(Graph.MODE mode){
+		super(mode);
+	}// default constructor
 	
 	public boolean PQIsEmpty() {
 		return HIsEmpty();
@@ -21,7 +24,7 @@ public class PriorityQueue extends Heap {
 
 
 class Heap{
-	
+	Graph.MODE mode;
 	final static int HEAPMAX = 100; //#of pair that can inserted in array
 	protected static int numOfData;
 	
@@ -30,14 +33,24 @@ class Heap{
 	//priority compare function.
 	//if p1 has higher priorities , return true else return false
 	//Pair the has smaller weight has higher priority
-	private boolean PriorityComp(Pair p1, Pair p2) {
-		if(p1.getWeigth() < p2.getWeigth())
+	
+	private boolean PriorityComp(Graph.MODE m, Pair p1, Pair p2) {
+		
+		if(m == Graph.MODE.TIME) {
+			if(p1.getWeigth() < p2.getWeigth())
+				return true;
+			return false;
+	
+		}else{
+			if(p1.getWeigth() < p2.getWeigth())
+				return false;
 			return true;
-		return false;
+		}
 	}
 	
 	
-	public Heap(){ //constructor
+	public Heap(Graph.MODE mode){ //constructor
+		this.mode = mode;
 		numOfData = 0;
 		heapArr = new Pair[HEAPMAX];
 		for(int i= 1; i<HEAPMAX; i++) {
@@ -65,7 +78,7 @@ class Heap{
 			return GetLChildIDX(idx);
 		else {
 			//if left child has higher priority
-			if(PriorityComp(heapArr[GetLChildIDX(idx)], heapArr[GetRChildIDX(idx)])) {
+			if(PriorityComp(mode, heapArr[GetLChildIDX(idx)], heapArr[GetRChildIDX(idx)])) {
 				return GetLChildIDX(idx);
 			}else {
 				return GetRChildIDX(idx);
@@ -82,7 +95,7 @@ class Heap{
 		while(idx != 1) {
 			//if p has higher priority
 			
-			if(PriorityComp(p, heapArr[GetParentIDX(idx)])== true) {
+			if(PriorityComp(mode, p, heapArr[GetParentIDX(idx)])== true) {
 				heapArr[idx] = heapArr[GetParentIDX(idx)];
 				idx= GetParentIDX(idx); //swap with parent pair
 			}else
@@ -105,7 +118,7 @@ class Heap{
 		
 		while((childIdx = getHiPriChildIDX(parentIdx)) != 0) {
 			
-			if(PriorityComp(last_data, heapArr[childIdx]))
+			if(PriorityComp(mode, last_data, heapArr[childIdx]))
 				break;
 			else {
 				heapArr[parentIdx] = heapArr[childIdx];

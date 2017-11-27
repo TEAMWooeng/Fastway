@@ -9,19 +9,29 @@ import java.net.URL;
 //In this class, we have to parse data and make LinkedList.
 public final class Parsing {
 	
-	public static void parse(LinkedList[] speed, LinkedList[] time) throws Exception {
-	
-		String name;
-	    String[][] Name = new String[5][7];
-	    int arr[]= {600,700,800,1300,1400,1500,1600};         
-	    for(int i=0;i<7;i++) {
+	public static LinkedList[] parse(Graph.MODE M) { //throws Exception {
+		LinkedList[] speed = new LinkedList[Graph.numOfNode];
+		LinkedList[] time = new LinkedList[Graph.numOfNode];
+		
+		for(int i =0; i<Graph.numOfNode; i++) {
+			if(M == Graph.MODE.SPEED)
+				speed[i] = new LinkedList();
+			else {
+				time[i] = new LinkedList();
+			}
+		}
+		
+	    String[][] Name = new String[5][18];
+	    int arr[]= {5100,5200,4300,4400,2900,3000,6300,6400,4500,4600,2100,2200,2000,1900,3100,3200,3300,3400};         
+	    try {
+	    for(int i=0;i<18;i++) {
 	  
-	     String st,ed,dist,cd,x,y;
+	     
 	     //start, end, distance,
 	    
 	    
 	     int linkId=1190000000+arr[i];
-	     
+	     			   
 	     String url = "http://openapi.seoul.go.kr:8088/6a7356574a6c6967363348764e726f/xml/LinkInfo/1/5/";
 	     String totalUrl=url+linkId;
 	     
@@ -35,7 +45,9 @@ public final class Parsing {
 	      Name[0][i] = temp.split("road_name>")[1].split("<")[0];
 	      Name[1][i] = temp.split("st_node_nm>")[1].split("<")[0];
 	      Name[2][i] = temp.split("ed_node_nm>")[1].split("<")[0];
-	     
+	     System.out.println(Name[1][i]);
+	     System.out.println(Name[2][i]);
+	     System.out.println(linkId);
 	     }
 	     
 	     
@@ -66,28 +78,31 @@ public final class Parsing {
 	     
 	   }//for구문 끝나는부분
 	    //store Name
+		}catch(Exception e) {
+			e.getStackTrace();
+		}
 	    
-	    
-	    for(int i=1;i<2;i++) {
-	       /*
-	    System.out.println(Name[0][i]);
-	    System.out.println(Name[1][i]);
-	    System.out.println(Name[2][i]);
-	    System.out.println(Name[3][i]);
-	    System.out.println(Name[4][i]);
-	    */
-	     
-	    	setList(Name[1][i],Name[2][i],Integer.parseInt(Name[3][i]),speed);
-	    	setList(Name[1][i],Name[2][i],Integer.parseInt(Name[4][i]),time);
-	    	
+	    for(int i=0;i<18;i++) {
+	       
+	     if(M == Graph.MODE.SPEED) {
+	    	setList(Name[1][i],Name[2][i],Double.parseDouble(Name[3][i]),speed);
+	     }else {
+	    	setList(Name[1][i],Name[2][i],Double.parseDouble(Name[4][i]),time);
+	     }
 	   }
 		
+	    
+	    if(M == Graph.MODE.SPEED)
+	    	time = null;
+	    	return speed;
+	    else {
+	    	speed = null;
+	    	return time;
+	    }
 	}
-
-
 	
 	//will be used in parse method
-	private static void setList(String start, String end, int weight, LinkedList[] list) {
+	private static void setList(String start, String end, double weight, LinkedList[] list) {
 		
 		int sidx = Graph.findNodeIdx(start);
 		int eidx = Graph.findNodeIdx(end);
