@@ -9,7 +9,7 @@ import java.net.URL;
 //In this class, we have to parse data and make LinkedList.
 public final class Parsing {
 	
-	private static void parse(LinkedList[] speed, LinkedList[] time){
+	public static void parse(LinkedList[] speed, LinkedList[] time){
 		
 		final String target = "http://openapi.seoul.go.kr:8088/6b6e676670666c753434736d6f7076/xml/TrafficInfo/1/5/1220003800";
 	    try { 
@@ -29,6 +29,20 @@ public final class Parsing {
 	    }
 	   
 	   
+	}
+	
+	//will be used in parse method
+	private static void setList(String start, String end, int weight, LinkedList[] array) {
+		
+		//find starting node
+		int sidx = Graph.findNodeIdx(start);
+		if(sidx == -1) return;	//if there is no string in the node array
+		
+		int eidx = Graph.findNodeIdx(end);
+		if(eidx == -1) return;
+		
+		array[sidx].Insert(Graph.nodearr.get(eidx), weight);
+		
 	}
 	
 }

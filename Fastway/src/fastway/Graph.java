@@ -18,8 +18,8 @@ public class Graph {
 	}};
 	
 	public static LinkedList[] cost;	//store final weight 
-	private int[] distance;     //store the distance(find fastest way)
-	private Node[] previous;
+	private static int[] distance;     //store the distance(find fastest way)
+	private static Node[] previous;
 	//public Graph() {}	//default constructor
 	
 	public Graph(LinkedList[] list) {
@@ -31,7 +31,18 @@ public class Graph {
 	}
 
 	
-	public void shortestway(Node start, Node end) {
+	public void shortestway(String s, String e) {
+		
+		int sidx = findNodeIdx(s);
+		int eidx = findNodeIdx(e);
+		if(sidx == -1 || eidx == -1) {
+			System.out.println("Error");
+			return;
+		}
+		
+		
+		Node start = Graph.nodearr.get(sidx);
+		Node end = Graph.nodearr.get(eidx);
 		
 		Arrays.fill(distance, 999999);	//initialize distance to infinite
 		PriorityQueue pq = new PriorityQueue(); //pq initialize
@@ -66,7 +77,7 @@ public class Graph {
 		previous = null; // delete dynamic allocation 
 	}
 	
-	
+
 	private void showShortestPath(Node start, Node end, Node[] previous) {
 		while(true) {
 			if(start.getIdx() == end.getIdx()) {
@@ -79,11 +90,11 @@ public class Graph {
 		}
 	}
 	
-	//if there is same node in nodearr, return index of that node. else, return -1
-	private int findNodeIdx(String str) {
+	//if there is same node in node array, return index of that node. else, return -1
+	public static int findNodeIdx(String str) {
 		int num = 0;
 		while(nodearr.size()>num) {
-			if(nodearr.get(num).getLName() == str) {
+			if(nodearr.get(num).getLName().equals(str)) {
 				return num;
 			}
 		}
