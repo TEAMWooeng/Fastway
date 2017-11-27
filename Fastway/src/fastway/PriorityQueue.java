@@ -25,7 +25,7 @@ class Heap{
 	final static int HEAPMAX = 100; //#of pair that can inserted in array
 	protected static int numOfData;
 	
-	static Pair[] heapArr; 
+	private static Pair[] heapArr; 
 	
 	//priority compare function.
 	//if p1 has higher priorities , return true else return false
@@ -40,6 +40,9 @@ class Heap{
 	public Heap(){ //constructor
 		numOfData = 0;
 		heapArr = new Pair[HEAPMAX];
+		for(int i= 1; i<HEAPMAX; i++) {
+			heapArr[i]= new Pair();
+		}
 	}
 	
 	public boolean HIsEmpty() {
@@ -49,11 +52,11 @@ class Heap{
 	}
 	
 	//find index of parent, child pair in the heap.
-	private int GetParentIDX(int idx) { return idx/2; }
+	private int GetParentIDX(int idx) { return (int)(idx/2); }
 	private int GetLChildIDX(int idx) { return idx*2; }
 	private int GetRChildIDX(int idx) { return idx*2+1;}
 	
-	// find pair that has higher priority between two childen pair
+	// find pair that has higher priority between two children pair
 	int getHiPriChildIDX(int idx) {
 		//if it has no child pair
 		if(GetLChildIDX(idx)>numOfData) return 0; // heap[0] has no element
@@ -70,20 +73,28 @@ class Heap{
 		}
 	}
 
+	
 	public void HInsert(Pair p) {
 		int idx = numOfData+1;
+	
+		
 		
 		while(idx != 1) {
 			//if p has higher priority
-			if(PriorityComp(p, heapArr[GetParentIDX(idx)])) {
+			
+			if(PriorityComp(p, heapArr[GetParentIDX(idx)])== true) {
 				heapArr[idx] = heapArr[GetParentIDX(idx)];
 				idx= GetParentIDX(idx); //swap with parent pair
 			}else
 				break;
 						
 		}
+		
 		numOfData ++;
 		heapArr[idx] = p;
+		System.out.println("insert queue: "+ heapArr[idx].getNode().getLName()+","+heapArr[idx].getWeigth());
+		showQueue();
+		
 	}
 	
 	public Pair HDelete() {
@@ -105,7 +116,17 @@ class Heap{
 		
 		heapArr[parentIdx] = last_data;
 		numOfData --;
+		System.out.println("Delete Queue: "+ return_data.getNode().getLName()+","+return_data.getWeigth());
+		showQueue();
 		return return_data;
+	}
+	
+	public void showQueue() {
+		System.out.println("queue");
+		for(int i = 1; i<= this.numOfData ; i++) {
+			System.out.println(heapArr[i].getNode().getLName()+","+heapArr[i].getWeigth());
+		}
+		System.out.println();
 	}
 
 } //end of class
