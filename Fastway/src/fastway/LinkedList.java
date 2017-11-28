@@ -1,5 +1,4 @@
 package fastway;
-import java.util.*;
 
 public class LinkedList {
 	//private Node head;

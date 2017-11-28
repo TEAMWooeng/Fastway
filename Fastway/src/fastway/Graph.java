@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 public class Graph {
 	
+	//They have different PriorityQueue
 	public enum MODE{SPEED, TIME};
-	
-	static  int numOfNode = 8; 	//#of node that will be used.
+	public static final int numOfNode = 8; 	//#of node that will be used.
 	
 	// node example --> never changed.
-	static public final java.util.LinkedList<String> Nodearr 
+	public static final java.util.LinkedList<String> Nodearr 
 								= new java.util.LinkedList<String>() {{
 			add("노들역");
 			add("노량진역");
@@ -23,43 +23,38 @@ public class Graph {
 	
 	
 	public static LinkedList[] cost;	//store final weight 
-	private static double[] distance;     //store the distance(find fastest way)
+	private static double[] distance;   //store the distance(find fastest way)
 	private static String[] previous;
-	//public Graph() {}	//default constructor
 	
+	//constructor
 	public Graph() {
-		cost = null;	
-		distance = new double[numOfNode+1];
+		cost = null; //initialize when call shortestway method	
+		distance = new double[numOfNode];
 		Arrays.fill(distance, 999999);	//initialize distance to infinite
-		previous = new String[numOfNode+1];
+		previous = new String[numOfNode];
 		//initialize
-		for(int i =0; i<=numOfNode; i++) {
+		for(int i =0; i<numOfNode; i++) {
 			previous[i] = null;
 		}
 	}
 	
-	private void setCost(LinkedList[] list) {
-		this.cost = list;
-	}
+
 	
 	//dijkstra algorithm
 	public void shortestway(MODE m, String s, String e) {
-		LinkedList[] Cost = new LinkedList[numOfNode];
-		for(int i = 0; i< numOfNode ; i++) {
-			Cost[i] = new LinkedList();
-		}
-		
-		Cost = Parsing.parse(m);
-		this.setCost(Cost);
+		//initialize cost variable in graph
+		this.setCost(Parsing.parse(m));
 		PriorityQueue pq = new PriorityQueue(m);
 		
 		int sidx = Graph.findNodeIdx(s);
 		int eidx = Graph.findNodeIdx(e);
 		
+		//Staring node initialize
 		distance[sidx] = 0;
 		previous[sidx] = ""; 
 		pq.PEnqueue(new Pair(s,0));
-	
+		
+		//Start dijkstra algorithm
 		while(!pq.HIsEmpty()) {
 			Pair upperPair = pq.PDequeue();
 			int upperidx = Graph.findNodeIdx(upperPair.getNode());
@@ -96,6 +91,9 @@ public class Graph {
 		
 	}
 	
+	private void setCost(LinkedList[] list) {
+		cost = list;
+	}
 	
 	//if there is same node in node array, return index of that node. else, return -1
 	public static int findNodeIdx(String str) {

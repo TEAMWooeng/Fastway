@@ -30,10 +30,10 @@ class Heap{
 	
 	private static Pair[] heapArr; 
 	
+	
 	//priority compare function.
 	//if p1 has higher priorities , return true else return false
 	//Pair the has smaller weight has higher priority
-	
 	private boolean PriorityComp(Graph.MODE m, Pair p1, Pair p2) {
 		
 		if(m == Graph.MODE.TIME) {
@@ -41,10 +41,14 @@ class Heap{
 				return true;
 			return false;
 	
-		}else{
+		}else if(m == Graph.MODE.SPEED){
 			if(p1.getWeigth() < p2.getWeigth())
 				return false;
 			return true;
+		}else {
+			System.out.println("Such a mode does not exist");
+			System.exit(0);
+			return false;
 		}
 	}
 	
@@ -90,8 +94,6 @@ class Heap{
 	public void HInsert(Pair p) {
 		int idx = numOfData+1;
 	
-		
-		
 		while(idx != 1) {
 			//if p has higher priority
 			
@@ -99,15 +101,14 @@ class Heap{
 				heapArr[idx] = heapArr[GetParentIDX(idx)];
 				idx= GetParentIDX(idx); //swap with parent pair
 			}else
-				break;
-						
+				break;					
 		}
-		
 		numOfData ++;
 		heapArr[idx] = p;
 		showQueue();
 		
 	}
+	
 	
 	public Pair HDelete() {
 		int parentIdx = 1; // root index
