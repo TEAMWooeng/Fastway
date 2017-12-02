@@ -1,141 +1,193 @@
 package fastway;
 
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-public class Graph {
-	
-	//They have different PriorityQueue
-	public enum MODE{SPEED, TIME};
-	public static final int numOfNode = 39; 	//#of node that will be used.
-	
-	// node example --> never changed.
-	public static final java.util.LinkedList<String> Nodearr 
-								= new java.util.LinkedList<String>() {{
-			add("논현역");
-			add("학동역");
-			add("서울세관");
-			add("교보타워사거리");
-			add("차병원");
-			add("경복아파트");
-			add("삼릉공원");
-			add("차관아파트");
-			add("코엑스");
-			add("강남역");
-			add("국기원앞");
-			add("역삼역");
-			add("르네상스호텔");
-			add("선릉역");
-			add("포스코사거리");
-			add("삼성역");
-			add("강남경찰서");
-			add("강남면허시험장");
-			add("우성아파트");
-			add("역삼초교");
-			add("구역삼세무서");
-			add("개나리아파트");
-			add("도성초교");
-			add("대치사거리");
-			add("휘문고교");
-			add("뱅뱅사거리");
-			add("싸리고개공원입구");
-			add("도곡1동주민센터");
-			add("영동세브란스");
-			add("한티역");
-			add("은마아파트입구");
-			add("대치동우성아파트");
-			add("양재역");
-			add("양재전화국");
-			add("매봉역");
-			add("매봉터널");
-			add("도곡역");
-			add("대치역");
-			add("학여울역");
-			
-	}};
-	
-	
-	public static LinkedList[] cost;	//store final weight 
-	private static double[] distance;   //store the distance(find fastest way)
-	private static String[] previous;
-	
-	//constructor
-	public Graph() {
-		cost = null; //initialize when call shortestway method	
-		distance = new double[numOfNode];
-		Arrays.fill(distance, 999999);	//initialize distance to infinite
-		previous = new String[numOfNode];
-		//initialize
-		for(int i =0; i<numOfNode; i++) {
-			previous[i] = null;
-		}
-	}
-	
 
+//In this class, we have to parse data and make LinkedList.
+public final class Parsing {
 	
-	//dijkstra algorithm
-	public void shortestway(MODE m, String s, String e) {
-		//initialize cost variable in graph
-		this.setCost(Parsing.parse(m));
-		PriorityQueue pq = new PriorityQueue(m);
+	//before calling dijkstra method, have to be called 
+	public static LinkedList[] parse(Graph.MODE M) {
 		
-		int sidx = Graph.findNodeIdx(s);
-		int eidx = Graph.findNodeIdx(e);
+		LinkedList[] speed = new LinkedList[Graph.numOfNode];
+		LinkedList[] time = new LinkedList[Graph.numOfNode];
 		
-		//Staring node initialize
-		distance[sidx] = 0;
-		previous[sidx] = ""; 
-		pq.PEnqueue(new Pair(s,0));
-		
-		//Start dijkstra algorithm
-		while(!pq.HIsEmpty()) {
-			Pair upperPair = pq.PDequeue();
-			int upperidx = Graph.findNodeIdx(upperPair.getNode());
-			
-			cost[upperidx].searchInitiallize();
-			Pair tmpPair = new Pair();
-			while(cost[upperidx].search(tmpPair)) {
-				
-				int tmpidx = Graph.findNodeIdx(tmpPair.getNode());
-				
-				if(distance[tmpidx]>distance[upperidx]+tmpPair.getWeigth()) {
-					distance[tmpidx] = distance[upperidx]+tmpPair.getWeigth();
-					previous[tmpidx] = upperPair.getNode();
-					pq.PEnqueue(new Pair(tmpPair.getNode(), distance[tmpidx]));	
-				}
-			}
-			
-		}
-		
-		showShortestPath(sidx, eidx, previous);
-		System.out.println();
-	}
-	
-
-	private static void showShortestPath(int sidx, int eidx, String[] previous) {
-		
-		if(sidx == eidx && previous[sidx].equals("")) {
-			System.out.print(Nodearr.get(sidx));
-			return;
+		//Initialize LinkedList
+		if(M == Graph.MODE.SPEED) {
+			for(int i = 0; i<Graph.numOfNode; i++)
+				speed[i] = new LinkedList();
+			time = null;
+		}else if(M == Graph.MODE.TIME) {
+			for(int i = 0; i<Graph.numOfNode; i++)
+				time[i] = new LinkedList();
+			speed = null;
 		}else {
-			showShortestPath(sidx, Graph.findNodeIdx(previous[eidx]), previous);
-			System.out.print("-"+Nodearr.get(eidx));
+			//When an error exists
+			System.out.println("Such a mode does not exist");
+			System.exit(1);
 		}
+		
+	    String[][] Name = new String[5][122];
+	    int arr[]= {22,23,
+	    		27,28,
+	    		31,32,
+	    		33,34,
+	    		102,103,
+	    		106,107,
+	    		118,119,
+	    		124,125,
+	    		134,135,
+	    		142,143,
+	    		154,155,
+	    		160,161,
+	    		162,163,
+	    		166,167,
+	    		184,185,
+	    		190,191,
+	    		192,193,
+	    		194,195,
+	    		198,199,
+	    		206,207,
+	    		208,209,
+	    		210,211,
+	    		212,213,
+	    		214,215,
+	    		218,219,
+	    		222,223,
+	    		225,226,
+	    		229,230,
+	    		231,232,
+	    		233,234,
+	    		238,239,	    		
+	    		240,241,
+	    		242,243,
+	    		246,247,
+	    		248,249,
+	    		250,251,
+	    		252,253,
+	    		254,255,
+	    		258,259,
+	    		260,261,
+	    		262,263,
+	    		264,265,
+	    		266,267,
+	    		268,269,
+	    		270,271,
+	    		272,273,
+	    		274,275,
+	    		276,277,
+	    		278,279,
+	    		280,281,
+	    		282,283,
+	    		284,285,
+	    		288,289,
+	    		290,291,
+	    		292,293,
+	    		296,297,
+	    		298,299,
+	    		300,301,
+	    		304,305,
+	    		308,309,
+	    		312,313
+	    		//Sorry
+};         
+	    for(int i=0;i<122;i++) {
+	    arr[i]=arr[i]*100;}
+	    //start parsing
+	    try {
+	    	
+	    	for(int i=0;i<122;i++) {
+	    		
+	    		int linkId=1220000000+arr[i];
+	     			   
+	    		String url = "http://openapi.seoul.go.kr:8088/6a7356574a6c6967363348764e726f/xml/LinkInfo/1/5/";
+	    		String totalUrl=url+linkId;
+	     
+	    		String target = totalUrl;
+	    		HttpURLConnection con = (HttpURLConnection) new URL(target).openConnection();
+	    		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+	    		String temp;
+	     
+	    		while((temp = br.readLine()) !=null) {
+	        
+	    			Name[0][i] = temp.split("road_name>")[1].split("<")[0];
+	    			Name[1][i] = temp.split("st_node_nm>")[1].split("<")[0];
+	    			Name[2][i] = temp.split("ed_node_nm>")[1].split("<")[0];
+	    	 
+	    			//if you want to print 
+	    			System.out.println(Name[1][i]);
+	    			//System.out.println(Name[2][i]);
+	    			System.out.println(linkId);
+	    		}
+	     
+	     
+	    		con.disconnect();
+	    		br.close();
+	    		//Location End
+	      
+	    		linkId=1220000000+arr[i];
+	      
+	    		url = "http://openapi.seoul.go.kr:8088/6b6e676670666c753434736d6f7076/xml/TrafficInfo/1/5/";
+	    		totalUrl=url+linkId;
+	    		String target1 = totalUrl;
+	     
+	    		HttpURLConnection con1 = (HttpURLConnection) new URL(target1).openConnection();
+	    		BufferedReader br1 = new BufferedReader(new InputStreamReader(con1.getInputStream(), "UTF-8"));
+	     
+	    		String temp1;
+	    		while((temp1 = br1.readLine()) !=null) {
+	    			Name[3][i] = temp1.split("<prcs_spd>")[1].split("<")[0];
+	    			Name[4][i] = temp1.split("<prcs_trv_time>")[1].split("<")[0]; 
+	    			System.out.println(Name[3][i]);
+	    		}
+	    	
+	    		con.disconnect();
+	    		br.close(); 
+	    		//Speed and time
+	    
+	    	}//for구문 끝나는부분
+	    
+	    
+		}catch(Exception e) {
+			System.out.println("An error occurred during parsing");
+			System.exit(1);
+		}
+	    
+	    //set List
+	    if(M == Graph.MODE.SPEED) {
+	    	for(int i = 0; i<122; i++)
+	    		setList(Name[1][i],Name[2][i],Double.parseDouble(Name[3][i]),speed);
+	    	return speed;
+	    }else if(M == Graph.MODE.TIME) {
+	    	for(int i = 0; i<122; i++) 
+	    		setList(Name[1][i],Name[2][i],Double.parseDouble(Name[4][i]),time);
+	    	return time;
+	    }else {
+	    	System.out.println("Such a mode does not exist");
+			return null;
+	    }
+	    
+	}
+	
+	
+	
+	
+	//will be used in parse method
+	private static void setList(String start, String end, double weight, LinkedList[] list) {
+		
+		int sidx = Graph.findNodeIdx(start);
+		int eidx = Graph.findNodeIdx(end);
+		
+		if(sidx == -1 || eidx == -1) {
+			System.out.println("there is no node info");
+			return ;
+		}
+		
+		list[sidx].Insert(new Pair(end, weight));
 		
 	}
 	
-	private void setCost(LinkedList[] list) {
-		cost = list;
-	}
-	
-	//if there is same node in node array, return index of that node. else, return -1
-	public static int findNodeIdx(String str) {
-		int num = 0;
-		while(Nodearr.size()>num) {
-			if(Nodearr.get(num).equals(str)) {
-				return num;
-			}
-			num++;
-		}
-		return -1;
-	}
 }
