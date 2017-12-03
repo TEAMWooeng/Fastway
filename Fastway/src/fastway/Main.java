@@ -18,12 +18,17 @@ public class Main {
          Invocable invvoc = (Invocable)engine;
          invvoc.invokeFunction("initMap", "");
   */       
-         
         
 		
-		//Graph g = new Graph();
-		//g.shortestway(Graph.MODE.SPEED, "도곡역", "강남역");
+        
+		Layout layout = new Layout();      //Show GUI
+		layout.showTextFieldDemo();		//There will be g.shortestway in GUI
 		
+		
+		
+		
+		if(layout.error==0){
+		   
 		try {
 	        ////////////////////////////////////////////////////////////////
 	        BufferedWriter out = new BufferedWriter(new FileWriter("map2.html"));	//map2.html 파일 생성
@@ -91,6 +96,6 @@ public class Main {
 		File htmlFile = new File("map2.html");
 		Desktop.getDesktop().browse(htmlFile.toURI());	//생성된 html 파일 열기
 	}
-	
+	}
 	
 }
