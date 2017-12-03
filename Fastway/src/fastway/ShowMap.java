@@ -9,7 +9,9 @@ import java.util.Arrays;
 
 public class ShowMap {
 	public static void showload(String[][] Coord) {
-		
+		String[] vertex= new String[Coord.length];
+		for(int i = 0; i< Coord.length; i++)
+			vertex[i] = Coord[i][0];
 		try {
 	        
 	        BufferedWriter out = new BufferedWriter(new FileWriter("map2.html"));	//write html file
@@ -20,16 +22,24 @@ public class ShowMap {
 	        		"  <script src=\"http://maps.google.com/maps/api/js?sensor=false\" type=\"text/javascript\"></script>\r\n" + 
 	        		"</head>\r\n" + 
 	        		"<body>\r\n" + 
-	        		"  <div id=\"map\" style=\"height: 800px; width: 800px;\">\r\n" + 
+	        		"<H3> 경로 : ";
+	        out.write(s); out.newLine();
+	        for(int i = 0; i< Coord.length; i++) {
+	        	out.write(vertex[i].toString());
+	        	if(i!=Coord.length-1)
+	        		out.write("->");
+	        }
+	        
+	        String t = "</H3>  <div id=\"map\" style=\"height: 800px; width: 800px;\">\r\n" + 
 	        		"</div>\r\n" + 
 	        		"<script type=\"text/javascript\">\r\n" + 
 	        		"	var locations = ";
 	        ;
-	        out.write(s); out.newLine();
+	        out.write(t); out.newLine();
 	        
 	    	out.write(Arrays.deepToString(Coord));
 	        	
-	        String t = ";\n" +
+	        String d = ";\n" +
 	        		"function initMap(arg){\r\n" + 
 	        		"	\r\n" + 
 	        		"	var map = new google.maps.Map(document.getElementById('map'), {\r\n" + 
@@ -59,7 +69,7 @@ public class ShowMap {
 	        		"\r\n";
 
 	        
-	        out.write(t);
+	        out.write(d);
 	        out.close();
 	        //
 	      } catch (IOException e) {
