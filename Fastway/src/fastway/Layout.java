@@ -7,7 +7,6 @@ import javax.swing.*;
 
  
 class Layout {
-   public  int error = 1;
    private JFrame mainFrame;
    private JLabel headerLabel;
    private JLabel statusLabel;
@@ -53,22 +52,20 @@ class Layout {
 
       JButton submitButton = new JButton("Submit");
       submitButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {     
-        	
+         public void actionPerformed(ActionEvent e) {  
         	Graph g = new Graph();
         	String gStart = startText.getText();
         	String gEnd = endText.getText();
         	int Gmode = Integer.parseInt(modeText.getText());
         	if(Gmode==1) {
         		g.shortestway(Graph.MODE.SPEED, gStart, gEnd);
-        		error= 0;
         	}
         	else if(Gmode==2){
         		g.shortestway(Graph.MODE.TIME, gStart, gEnd);
-        		error= 0;
         	}
-                
+        	mainFrame.dispose();
          }
+        
       }); 
 
       controlPanel.add(startLabel);
