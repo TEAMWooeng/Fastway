@@ -7,7 +7,7 @@ public class Graph {
 	//They have different PriorityQueue
 	public enum MODE{SPEED, TIME};
 	public static final int numOfNode = 39; 	//#of node that will be used.
-	
+	private static int numofstage;
 	// node example --> never changed.
 	public static final java.util.LinkedList<String> Nodearr 
 								= new java.util.LinkedList<String>() {{
@@ -104,6 +104,7 @@ public class Graph {
 	
 	//constructor
 	public Graph() {
+		numofstage = 0;
 		cost = null; //initialize when call shortestway method	
 		distance = new double[numOfNode];
 		Arrays.fill(distance, 999999);	//initialize distance to infinite
@@ -114,10 +115,9 @@ public class Graph {
 		}
 	}
 	
-
 	
 	//dijkstra algorithm
-	public String[][] shortestway(MODE m, String s, String e) {
+	public void shortestway(MODE m, String s, String e) {
 		//initialize cost variable in graph
 		this.setCost(Parsing.parse(m));
 		PriorityQueue pq = new PriorityQueue(m);
@@ -151,42 +151,44 @@ public class Graph {
 			
 		}
 		
-		String[][] latlong = showShortestPath(sidx, eidx, previous);
-		System.out.println();
-		return latlong;
-	}
-	
-
-	private static String[][] showShortestPath(int sidx, int eidx, String[] previous) {
-		String[][] latlong = new String[previous.length][3];
+		numofstage = 0; //store # of stage
+		showShortestPath(sidx, eidx, previous);	//show the root on console
 		
+		String[][] latlong = new String[numofstage][3];	// make string -> html argument
 		
-		//store info at latlong
+		int cnt = 0;
 		int idx = eidx;
-		int cnt = 0;		
+		
 		while(true) {
-			latlong[cnt][0] = Latlong[idx][0];
+			
+			latlong[cnt][0] = "'"+Latlong[idx][0]+"'";
 			latlong[cnt][1] = Latlong[idx][1];
 			latlong[cnt][2] = Latlong[idx][2];
-			
-			System.out.println(latlong[cnt][0]);
+		
 			if(previous[idx].equals(""))
 				break;
 			cnt++;
 			idx = findNodeIdx(previous[idx]);
 		}
 		
+		System.out.println();
+		
+		ShowMap.showload(latlong);
+	}
+	
+	//show the root
+	private static void showShortestPath(int sidx, int eidx, String[] previous) {
+		
 		//print path
 		if(sidx == eidx && previous[sidx].equals("")) {
 			System.out.print(Nodearr.get(sidx));
-			
-			return latlong;
+			numofstage++;
+			return;
 		}else {
 			showShortestPath(sidx, Graph.findNodeIdx(previous[eidx]), previous);
 			System.out.print("-"+Nodearr.get(eidx));
+			numofstage++;
 		}
-		
-		return latlong;
 	}
 	
 	private void setCost(LinkedList[] list) {

@@ -27,8 +27,6 @@ public class ShowMap {
 	        ;
 	        out.write(s); out.newLine();
 	        
-	        //String[][] Coord = {{"'�끉�쁽�뿭'","37.511063", "127.021354"},	//寃쎌쑀吏� 醫뚰몴
-	        	//	{"'媛뺣궓�뿭'","37.497937", "127.027619"}};
 	    	out.write(Arrays.deepToString(Coord));
 	        	
 	        String t = ";\n" +
