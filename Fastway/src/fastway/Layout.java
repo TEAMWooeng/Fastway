@@ -59,11 +59,11 @@ class Layout {
         	String gStart = startText.getText();
         	String gEnd = endText.getText();
         	int Gmode = Integer.parseInt(modeText.getText());
-        	if(Gmode==0) {
+        	if(Gmode==1) {
         		g.shortestway(Graph.MODE.SPEED, gStart, gEnd);
         		error= 0;
         	}
-        	else {
+        	else if(Gmode==2){
         		g.shortestway(Graph.MODE.TIME, gStart, gEnd);
         		error= 0;
         	}
