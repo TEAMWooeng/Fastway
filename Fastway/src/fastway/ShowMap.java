@@ -24,9 +24,9 @@ public class ShowMap {
 	        		"<body>\r\n" + 
 	        		"<H3> 경로 : ";
 	        out.write(s); out.newLine();
-	        for(int i = 0; i< Coord.length; i++) {
+	        for(int i = Coord.length-1; i>= 0; i--) {
 	        	out.write(vertex[i].toString());
-	        	if(i!=Coord.length-1)
+	        	if(i!=0)
 	        		out.write("->");
 	        }
 	        
